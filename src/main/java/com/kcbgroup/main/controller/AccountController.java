@@ -41,7 +41,7 @@ public class AccountController {
 
 		} catch (Exception e) {
 			log.error("---------", e.getLocalizedMessage());
-			return new ResponseEntity<>("Dublicate Account Number", HttpStatus.CONFLICT);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 	}
 

@@ -50,7 +50,7 @@ public class Account {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumns({
 		@JoinColumn(name = "customer_id_number", nullable = false),
-//		@JoinColumn(name = "customer_id", nullable = false)
+//		@JoinColumn(name = "customer_id", nullable = false,referencedColumnName = "id")
 		
 	})
 	private Customer customer;

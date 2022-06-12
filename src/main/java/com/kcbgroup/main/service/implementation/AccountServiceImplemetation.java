@@ -37,7 +37,7 @@ public class AccountServiceImplemetation implements AccountService {
 	@Override
 	public List<Account> getCustomerAccounts(String customerIdNumber) {
 		// TODO Auto-generated method stub
-		return (List<Account>) accountRepository.findAccountById(customerIdNumber);
+		return (List<Account>) accountRepository.findAccountByCustomerId(customerIdNumber);
 	}
 	
 
