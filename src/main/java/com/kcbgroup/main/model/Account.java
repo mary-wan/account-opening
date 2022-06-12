@@ -26,10 +26,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "ken20956_Account")
 public class Account {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_generator")
-	private long id;
 
+	
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	private long id;
+
+	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(unique = true, nullable = false)
@@ -37,6 +39,9 @@ public class Account {
 
 	@Column(name = "status")
 	private String status;
+
+	@Column(name = "account_type")
+	private String accountType;
 
 	public Customer getCustomer() {
 		return customer;
@@ -49,7 +54,7 @@ public class Account {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumns({
-		@JoinColumn(name = "customer_id_number", nullable = false),
+		@JoinColumn(name = "customer_id_number", nullable = false, referencedColumnName = "customer_id_number"),
 //		@JoinColumn(name = "customer_id", nullable = false,referencedColumnName = "id")
 		
 	})

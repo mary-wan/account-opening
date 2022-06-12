@@ -1,6 +1,7 @@
 package com.kcbgroup.main.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,6 @@ public interface CustomerService {
 	
 	List<Customer> getCustomers();
 	
-	Customer getCustomerById(String customerIdNumber);
+	Optional<Customer> getCustomerById(Long customerIdNumber);
 
 }

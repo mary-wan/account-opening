@@ -1,5 +1,6 @@
 package com.kcbgroup.main.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,8 +19,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ken20956_Customer")
-public class Customer {
+public class Customer  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
 	private long id;
@@ -30,8 +36,11 @@ public class Customer {
 	@Column(name = "last_name")
 	private String lastName;
 	
+	@Column(name = "document_type")
+	private String documentType;
+	
 	@Column(name = "customer_id_number")
-	private String customerIdNumber;
+	private Long customerIdNumber;
 	
 	@Column(name="DOB")
 	private Date dob;

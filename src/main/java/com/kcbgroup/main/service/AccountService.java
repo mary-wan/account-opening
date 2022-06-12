@@ -12,7 +12,7 @@ public interface AccountService {
 	
 	ResponseEntity<Account> createAccount(Long customerIdNumber, Account accountRequest);
 	
-	List<Account> getCustomerAccounts(String customerIdNumber);
+	List<Account> getCustomerAccounts(Long customerIdNumber);
 	
 	ResponseEntity<List<Account>> getAllAccountsByCustomerId(String customerId);
 

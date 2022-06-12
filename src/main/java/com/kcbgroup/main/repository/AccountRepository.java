@@ -9,21 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kcbgroup.main.model.Account;
 
+@Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-	
-//	Account getAllUserAccounts(Long customerId);
-//	
-//	@Query(value = "SELECT *\r\n"
-//			+ "FROM ken20956_account\r\n"
-//			+ "INNER JOIN ken20956_customer ON ken20956_account.customer_id = ken20956_customer.id;", nativeQuery = true)
-//    List<Account> findAccountById(@Param("customerId") Long id);
-	
-//	@Query(value = "SELECT ken20956_account.account_number FROM ken20956_account INNER JOIN ken20956_customer ON ken20956_account.customer_id_number =:customerIdNumber", nativeQuery = true)
-//     List<Account>findAccountById(@Param("customerIdNumber") String customerIdNumber );
-	
-//	@Query(value = "SELECT * FROM ken20956_account INNER JOIN ken20956_customer ON ken20956_account.customer_id_number =:customerIdNumber", nativeQuery = true)
-//	List<Account> findAccountById(@Param("customerIdNumber") String customerIdNumber);
-	
-	List<Account> findAccountByCustomerId(String customerIdNumber);
+
+	@Query(value = "SELECT * FROM ken20956_account WHERE ken20956_account.customer_id_number =:customerIdNumber", nativeQuery = true)
+	List<Account> findAccountById(@Param("customerIdNumber") Long customerIdNumber);
+
 
 }

@@ -40,9 +40,9 @@ public class CustomerController {
 	}
 
 	@GetMapping("/get/customer/{id}")
-	public ResponseEntity<?> getCustomer(@PathVariable String id) {
+	public ResponseEntity<?> getCustomer(@PathVariable Long id) {
 		if (customerService.getCustomerById(id) != null) {
-			return new ResponseEntity<Customer>(customerService.getCustomerById(id), HttpStatus.OK);
+			return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
 		}
 		else {
 			log.info("---- Customer with id {} not found -----.", id);
