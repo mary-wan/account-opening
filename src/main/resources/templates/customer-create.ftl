@@ -52,7 +52,7 @@
             <cus:gKCB.DOC.NAME g="1">
                <cus:mKCB.DOC.NAME m="1">
                   <cus:KCBDocName>NATIONAL.ID</cus:KCBDocName>
-                  <cus:KCBDocID>{customerIdNumber}</cus:KCBDocID>
+                  <cus:KCBDocID>${customerIdNumber}</cus:KCBDocID>
                   <cus:DocumentIssueAuthority>GOK</cus:DocumentIssueAuthority>
                   <cus:DocumentIssueDate>20170202</cus:DocumentIssueDate>
                   <cus:DocumentExpiryDate></cus:DocumentExpiryDate>

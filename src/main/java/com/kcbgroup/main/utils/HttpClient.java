@@ -34,7 +34,6 @@ public class HttpClient {
 	private Logger logger = LoggerFactory.getLogger(HttpClient.class);
 	
 	public HashMap<String, String>  INVOKE_T24(String requestXml) {
-		logger.info("-------------------{}",requestXml);
 		
 		String HttpMessageCode = "500";
 		String HttpMessage = null;

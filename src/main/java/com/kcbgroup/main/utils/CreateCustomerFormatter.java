@@ -47,6 +47,8 @@ public class CreateCustomerFormatter {
 			
 			String requestXml = FreeMarkerTemplateUtils.processTemplateIntoString(templates, templateData);
 			
+			log.info("-------------------{}",requestXml);
+			
 			response.put("RESPONSE_CODE", "000");
 			response.put("RESPONSE_BODY", requestXml);
 			

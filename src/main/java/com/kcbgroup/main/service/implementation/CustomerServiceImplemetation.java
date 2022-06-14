@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.kcbgroup.main.model.CreateCustomerResponse;
 import com.kcbgroup.main.model.Customer;
 import com.kcbgroup.main.repository.CustomerRepository;
 import com.kcbgroup.main.service.CustomerService;
@@ -24,7 +23,7 @@ public class CustomerServiceImplemetation implements CustomerService {
 
 	@Autowired
 	CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private CreateCustomerFormatter createCustomerFormatter;
 
@@ -43,37 +42,39 @@ public class CustomerServiceImplemetation implements CustomerService {
 			// 2-TRANSFORM JSON TO XML for T24
 			HashMap<String, String> xmlRequest = new HashMap<String, String>();
 			xmlRequest = createCustomerFormatter.formatCustomerCreateRequest(customer);
+			
 			if (xmlRequest != null) {
-				
+
 				// 3-INVOKE T24 SOAP ENDPOINT for CUSTOMER CREATION
 
 				HashMap<String, String> T24 = new HashMap<String, String>();
 				T24 = httpClient.INVOKE_T24(xmlRequest.get("RESPONSE_BODY"));
 
 				if (T24.get("RESPONSE_CODE").equals("000")) {
-                     
-					// success-HandShake
+
 					String responseBody = T24.get("RESPONSE_BODY");
-					
+
 					// 4-GET RESPONSE - TRANSFORM XML to JSON
-					String coreTransactionId = StringUtils.substringBetween(responseBody, "<transactionId>", "</transactionId>");
-			    	String coreSuccessIndicator = StringUtils.substringBetween(responseBody, "<successIndicator>", "</successIndicator>");
-			    	
-			    	log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}",coreSuccessIndicator);
-			    	log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}",coreTransactionId);
-					
-			    	// 5-GET CUSTOMER NUMBER(CIF) from RESPONSE and update records in your DB
-					customer.setCustomerNumber(coreTransactionId);	
-					
+					String coreTransactionId = StringUtils.substringBetween(responseBody, "<transactionId>",
+							"</transactionId>");
+					String coreSuccessIndicator = StringUtils.substringBetween(responseBody, "<successIndicator>",
+							"</successIndicator>");
+
+					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", coreSuccessIndicator);
+					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", coreTransactionId);
+
+					// 5-GET CUSTOMER NUMBER(CIF) from RESPONSE and update records in your DB
+					customer.setCustomerNumber(coreTransactionId);
+
 					// 6-RESPOND BACK
 					return customerRepository.save(customer);
-					
+
 				} else {
-					
+
 					// failure-Handshake
 				}
 
-			} 
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
 
@@ -88,18 +89,18 @@ public class CustomerServiceImplemetation implements CustomerService {
 
 	@Override
 	public ResponseEntity<?> getCustomerById(Long customerIdNumber) {
-		
+
 		if (customerRepository.findCustomerBycustomerIdNumber(customerIdNumber) != null) {
-			return new ResponseEntity<>(customerRepository.findCustomerBycustomerIdNumber(customerIdNumber), HttpStatus.OK);
-		}
-		else {
+			return new ResponseEntity<>(customerRepository.findCustomerBycustomerIdNumber(customerIdNumber),
+					HttpStatus.OK);
+		} else {
 			log.info("---- Customer with id {} not found -----.", customerIdNumber);
 			return new ResponseEntity<>("ID not found", HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@Override
-	public ResponseEntity<?> updateCustomer(Customer customer,Long customerIdNumber) {
+	public ResponseEntity<?> updateCustomer(Customer customer, Long customerIdNumber) {
 //		try {
 //			Customer cust = customerRepository.findCustomerBycustomerIdNumber(customerIdNumber).orElseThrow();
 //			cust.setFirstName(customer.getFirstName());
