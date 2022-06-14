@@ -1,17 +1,18 @@
 package com.kcbgroup.main.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,8 +27,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "ken20956_Account")
 public class Account {
 
-
-	
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	private long id;
 
@@ -42,6 +41,19 @@ public class Account {
 
 	@Column(name = "account_type")
 	private String accountType;
+	
+//	@Column(name = "kra_pin")
+//	private String kraPin;
+//	
+//	@Column(name = "street")
+//	private String street;
+//	
+//	@Column(name = "nationality")
+//	private String nationality;
+//	
+//	@Column(name = "industry")
+//	private String industry;
+	
 
 	public Customer getCustomer() {
 		return customer;
@@ -50,14 +62,12 @@ public class Account {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	
+
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumns({
-		@JoinColumn(name = "customer_id_number", nullable = false, referencedColumnName = "customer_id_number"),
-//		@JoinColumn(name = "customer_id", nullable = false,referencedColumnName = "id")
-		
-	})
+	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.ALL})
+//	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "customer_id_number", nullable = false, referencedColumnName = "customer_id_number")
+
 	private Customer customer;
 
 }

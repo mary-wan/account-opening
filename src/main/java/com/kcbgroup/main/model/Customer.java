@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,11 +40,12 @@ public class Customer  implements Serializable{
 	@Column(name = "document_type")
 	private String documentType;
 	
-	@Column(name = "customer_id_number")
+	
+	@Column(name = "customer_id_number", unique=true )
 	private Long customerIdNumber;
 	
-	@Column(name="DOB")
-	private Date dob;
+	@Column(name="dob")
+	private Date dateOfBirth;
 	
 	@Column(name = "gender")
 	private String gender;
@@ -53,6 +55,12 @@ public class Customer  implements Serializable{
 	
 	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "street")
+	private String street;
+	
+	@Column(name = "town_country")
+	private String TownCountry;
 
 	public Customer map(Customer customer) {
 		// TODO Auto-generated method stub

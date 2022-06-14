@@ -16,9 +16,11 @@ spring:
       minimum-idle: '5'
     password: ''
     username: root
-    url: jdbc:mysql://localhost:3306/cust_db2?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/testDb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
   jackson:
     serialization:
       fail-on-empty-beans: 'false'
+  application:
+    name: kcb-account-opening
 server:
   port: '8181'

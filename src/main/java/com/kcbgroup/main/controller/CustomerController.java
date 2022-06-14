@@ -1,5 +1,6 @@
 package com.kcbgroup.main.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kcbgroup.main.model.Customer;
@@ -27,7 +29,7 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 
-	@PostMapping("/customer")
+	@RequestMapping(value="/customer", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
 		customerService.createCustomer(customer);
 		return new ResponseEntity<>("Customer Created", HttpStatus.CREATED);
@@ -48,6 +50,18 @@ public class CustomerController {
 			log.info("---- Customer with id {} not found -----.", id);
 			return new ResponseEntity<>("ID not found", HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@RequestMapping(value = "/customer/update/{id}", method = RequestMethod.PUT, consumes = "application/json")
+	public ResponseEntity<?> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
+
+		return customerService.updateCustomer(customer, id);
+
+	}
+	
+	@RequestMapping(value = "/delete/customer/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<HttpStatus> Customer(@PathVariable("id") Long id) {
+		return customerService.deleteCustomerById(id);
 	}
 
 }

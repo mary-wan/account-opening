@@ -40,8 +40,8 @@ public class AccountController {
 			return new ResponseEntity<>(accountService.createAccount(customerId, account), HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			log.error("---------", e.getLocalizedMessage());
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+			log.error(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -50,9 +50,8 @@ public class AccountController {
 		
 		if (customerService.getCustomerById(customerIdNumber) == null) {
 			throw new ResourceNotFoundException("Customer with id " + customerIdNumber + " not found.");
-		}
-		List<Account> accounts = accountService.getCustomerAccounts(customerIdNumber);		
-		return new ResponseEntity<>(accounts, HttpStatus.OK);
+		}		
+		return new ResponseEntity<>(accountService.getCustomerAccounts(customerIdNumber), HttpStatus.OK);
 
 	}
 

@@ -33,25 +33,15 @@ public class AccountServiceImplemetation implements AccountService {
 
 	}
 
-
 	@Override
 	public List<Account> getCustomerAccounts(Long customerIdNumber) {
-		// TODO Auto-generated method stub
+
 		return (List<Account>) accountRepository.findAccountById(customerIdNumber);
 	}
-	
-
 
 	@Override
 	public ResponseEntity<List<Account>> getAllAccountsByCustomerId(String customerIdNumber) {
 		return null;
 	}
-	
-
-//	@Override
-//	public ResponseEntity<List<Account>> getAllAccountsByCustomerId(Long customerId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }
