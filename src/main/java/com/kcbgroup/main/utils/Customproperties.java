@@ -1,10 +1,17 @@
 package com.kcbgroup.main.utils;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Configuration
-public class Customproperties {
-	
+@Getter
+@Setter
+@ConfigurationProperties(prefix = "t24")
+public class CustomProperties {
+
 	private String clientUsername;
 	private String clientPassword;
 	private String serviceName;

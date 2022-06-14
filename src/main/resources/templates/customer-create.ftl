@@ -1,7 +1,7 @@
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:t24="http://temenos.com/T24KCBAccountOpening" xmlns:cus="http://temenos.com/CUSTOMERKCBCHANNELS">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:t24="http://temenos.com/T24KCBChannelService" xmlns:cus="http://temenos.com/CUSTOMERKCBCHANNELS">
    <soapenv:Header/>
    <soapenv:Body>
-      <t24:KCBCustomerCreation>
+      <t24:T24WebServicesImplService>
          <WebRequestCommon>
             <company>KE0010001</company>
             <password>QWERTYui123*</password>

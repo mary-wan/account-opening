@@ -16,7 +16,7 @@ spring:
       minimum-idle: '5'
     password: ''
     username: root
-    url: jdbc:mysql://localhost:3306/testDb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/cust_db2?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
   jackson:
     serialization:
       fail-on-empty-beans: 'false'
@@ -24,3 +24,11 @@ spring:
     name: kcb-account-opening
 server:
   port: '8181'
+
+t24:
+  client-username: SAFARICOMSTK
+  client-password: xxxxxx
+  service-name: T24WebServicesImplService
+  base-url: https://10.216.1.46:8443/
+  base-resource: /T24KCBChannelService/services
+

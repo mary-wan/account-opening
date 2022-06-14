@@ -25,11 +25,12 @@ public class AccountServiceImplemetation implements AccountService {
 	@Override
 	public ResponseEntity<Account> createAccount(Long customerIdNumber, Account accountRequest) {
 
-		Account account = customerRepository.findCustomerBycustomerIdNumber(customerIdNumber).map(customer -> {
-			accountRequest.setCustomer(customer);
-			return accountRepository.save(accountRequest);
-		}).orElseThrow(() -> new ResourceNotFoundException("Not found Customer with id = " + customerIdNumber));
-		return new ResponseEntity<>(account, HttpStatus.CREATED);
+//		Account account = customerRepository.findCustomerBycustomerIdNumber(customerIdNumber).map(customer -> {
+//			accountRequest.setCustomer(customer);
+//			return accountRepository.save(accountRequest);
+//		}).orElseThrow(() -> new ResourceNotFoundException("Not found Customer with id = " + customerIdNumber));
+//		return new ResponseEntity<>(account, HttpStatus.CREATED);
+		return null;
 
 	}
 
