@@ -63,4 +63,5 @@ public class Customer implements Serializable {
 	@Column(name = "customer_number")
 	private String customerNumber;
 
+
 }

@@ -10,7 +10,7 @@
          <OfsFunction>
          </OfsFunction>
          <ACCOUNTKCBCHANNELSType id="">
-            <acc:CustomerID>47797164</acc:CustomerID>
+            <acc:CustomerID>${customerNumber}</acc:CustomerID>
             <acc:ProductCode>6004</acc:ProductCode>
             <acc:AccountName1>MWE TESTING</acc:AccountName1>
             <acc:AccountName2>MWE TESTING</acc:AccountName2>
@@ -26,7 +26,7 @@
             <acc:GoalAmount></acc:GoalAmount>
             <acc:MobileNumber></acc:MobileNumber>
             <acc:GoalPeriod></acc:GoalPeriod>
-            <acc:KRAPin>A9099100101</acc:KRAPin>
+            <acc:KRAPin>${kraPin}</acc:KRAPin>
             <acc:DSACode>KECEDSR10397</acc:DSACode>
             <acc:gDSA.SUP g="1">
                <acc:ReferralCode>KECEDSR10397</acc:ReferralCode>

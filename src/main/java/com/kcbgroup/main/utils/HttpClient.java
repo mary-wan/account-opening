@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +20,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
 
 @Service
 public class HttpClient {
@@ -47,7 +47,7 @@ public class HttpClient {
 		HttpEntity<String> entity = new HttpEntity<String>(requestXml, headers);
 		
 		final String BASE_URL = customProperties.getBaseUrl() + customProperties.getBaseResource();
-		
+				
 		
 		try {
 			

@@ -15,10 +15,8 @@ public interface CustomerService {
 	Customer createCustomer(Customer customer);
 	
 	List<Customer> getCustomers();
-	
-//	Customer getCustomerById(Long customerIdNumber);
-	
-	ResponseEntity<?> getCustomerById(Long customerIdNumber);
+
+	Customer getCustomerById(Long customerIdNumber);
 	
 	ResponseEntity<?> updateCustomer(Customer customer,Long customerIdNumber);
 	

@@ -1,8 +1,6 @@
 package com.kcbgroup.main.controller;
 
-
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kcbgroup.main.model.Customer;
 import com.kcbgroup.main.service.CustomerService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
+@Slf4j
 public class CustomerController {
 
 	@Autowired
@@ -39,10 +40,14 @@ public class CustomerController {
 	}
 
 	@GetMapping("/get/customer/{id}")
-	
-	public ResponseEntity<?> getCustomer(@PathVariable Long CustomerIdNumber) {
-		
-		return customerService.getCustomerById(CustomerIdNumber) ;
+	public ResponseEntity<?> getCustomer(@PathVariable Long id) {
+		if (customerService.getCustomerById(id) != null) {
+			return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
+		}
+		else {
+			log.info("---- Customer with id {} not found -----.", id);
+			return new ResponseEntity<>("ID not found", HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@RequestMapping(value = "/customer/update/{id}", method = RequestMethod.PUT, consumes = "application/json")

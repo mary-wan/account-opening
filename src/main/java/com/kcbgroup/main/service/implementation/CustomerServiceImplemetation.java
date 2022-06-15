@@ -2,6 +2,7 @@ package com.kcbgroup.main.service.implementation;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,11 @@ public class CustomerServiceImplemetation implements CustomerService {
 	@Autowired
 	private CreateCustomerFormatter createCustomerFormatter;
 
-	// HTTP CLIENT
 	@Autowired
 	private HttpClient httpClient;
 
 	@Override
 	public Customer createCustomer(Customer customer) {
-//		CreateCustomerResponse responsePayload = new CreateCustomerResponse();
 		try {
 
 			// 1-SAVE REQUEST TO DATABASE
@@ -41,13 +40,15 @@ public class CustomerServiceImplemetation implements CustomerService {
 
 			// 2-TRANSFORM JSON TO XML for T24
 			HashMap<String, String> xmlRequest = new HashMap<String, String>();
+
 			xmlRequest = createCustomerFormatter.formatCustomerCreateRequest(customer);
-			
+
 			if (xmlRequest != null) {
 
 				// 3-INVOKE T24 SOAP ENDPOINT for CUSTOMER CREATION
 
 				HashMap<String, String> T24 = new HashMap<String, String>();
+				
 				T24 = httpClient.INVOKE_T24(xmlRequest.get("RESPONSE_BODY"));
 
 				if (T24.get("RESPONSE_CODE").equals("000")) {
@@ -67,7 +68,7 @@ public class CustomerServiceImplemetation implements CustomerService {
 					customer.setCustomerNumber(coreTransactionId);
 
 					// 6-RESPOND BACK
-					return customerRepository.save(customer);
+					//return customerRepository.save(customer);
 
 				} else {
 
@@ -87,16 +88,10 @@ public class CustomerServiceImplemetation implements CustomerService {
 		return customerRepository.findAll();
 	}
 
+	
 	@Override
-	public ResponseEntity<?> getCustomerById(Long customerIdNumber) {
-
-		if (customerRepository.findCustomerBycustomerIdNumber(customerIdNumber) != null) {
-			return new ResponseEntity<>(customerRepository.findCustomerBycustomerIdNumber(customerIdNumber),
-					HttpStatus.OK);
-		} else {
-			log.info("---- Customer with id {} not found -----.", customerIdNumber);
-			return new ResponseEntity<>("ID not found", HttpStatus.NOT_FOUND);
-		}
+	public Customer getCustomerById(Long customerIdNumber) {
+		return customerRepository.findCustomerBycustomerIdNumber(customerIdNumber);
 	}
 
 	@Override

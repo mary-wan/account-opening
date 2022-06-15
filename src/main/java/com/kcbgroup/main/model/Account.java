@@ -36,17 +36,14 @@ public class Account {
 	@Column(unique = true, nullable = false)
 	private String accountNumber;
 
-	@Column(name = "status")
-	private String status;
-
 	@Column(name = "account_type")
 	private String accountType;
 	
-//	@Column(name = "kra_pin")
-//	private String kraPin;
-//	
-//	@Column(name = "street")
-//	private String street;
+	@Column(name = "kra_pin")
+	private String kraPin;
+	
+	@Column(name = "customer_account")
+	private String customerAccount;
 //	
 //	@Column(name = "nationality")
 //	private String nationality;
@@ -54,14 +51,14 @@ public class Account {
 //	@Column(name = "industry")
 //	private String industry;
 	
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.ALL})
