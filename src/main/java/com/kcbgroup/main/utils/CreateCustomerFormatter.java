@@ -13,7 +13,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class CreateCustomerFormatter {
 
@@ -37,16 +36,14 @@ public class CreateCustomerFormatter {
 			templateData.put("firstName", requestWrapper.getFirstName());
 			templateData.put("customerIdNumber", requestWrapper.getCustomerIdNumber());
 			templateData.put("lastName", requestWrapper.getLastName());
-			templateData.put("fullName", requestWrapper.getLastName());
-			templateData.put("street", requestWrapper.getFirstName() + " " + requestWrapper.getStreet());
+			templateData.put("fullName", requestWrapper.getFirstName() + " " + requestWrapper.getLastName());
+			templateData.put("street", requestWrapper.getStreet());
 			templateData.put("townCountry", requestWrapper.getStreet());
 			
 			templateData.put("phoneNumber", requestWrapper.getPhoneNumber());
 			templateData.put("email", requestWrapper.getEmail());
 
 			String requestXml = FreeMarkerTemplateUtils.processTemplateIntoString(templates, templateData);
-
-//			log.info("-------------------{}", requestXml);
 
 			response.put("RESPONSE_CODE", "000");
 			response.put("RESPONSE_BODY", requestXml);

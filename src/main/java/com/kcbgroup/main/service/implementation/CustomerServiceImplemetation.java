@@ -43,7 +43,7 @@ public class CustomerServiceImplemetation implements CustomerService {
 
 			xmlRequest = createCustomerFormatter.formatCustomerCreateRequest(customer);
 
-			if (xmlRequest != null) {
+			if (xmlRequest.get("RESPONSE_CODE").equals("000")) {
 
 				// 3-INVOKE T24 SOAP ENDPOINT for CUSTOMER CREATION
 

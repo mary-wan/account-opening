@@ -41,18 +41,14 @@ public class AccountServiceImplemetation implements AccountService {
 		try {
 			Customer customer = customerRepository.findCustomerBycustomerIdNumber(customerIdNumber);
 
-			// 1-SAVE REQUEST TO DATABASE
 			accountRequest.setCustomer(customer);
 			accountRepository.save(accountRequest);
 
-			// 2-TRANSFORM JSON TO XML for T24
 			HashMap<String, String> xmlRequest = new HashMap<String, String>();
 
 			xmlRequest = createAccountFormatter.formatAccountCreateRequest(accountRequest);
 			
-			if (xmlRequest != null) {
-
-				// 3-INVOKE T24 SOAP ENDPOINT for CUSTOMER CREATION
+			if (xmlRequest.get("RESPONSE_CODE").equals("000")) {
 
 				HashMap<String, String> T24 = new HashMap<String, String>();
 				
@@ -61,8 +57,7 @@ public class AccountServiceImplemetation implements AccountService {
 				if (T24.get("RESPONSE_CODE").equals("000")) {
 
 					String responseBody = T24.get("RESPONSE_BODY");
-
-					// 4-GET RESPONSE - TRANSFORM XML to JSON
+					
 					String coreTransactionId = StringUtils.substringBetween(responseBody, "<transactionId>",
 							"</transactionId>");
 					String coreSuccessIndicator = StringUtils.substringBetween(responseBody, "<successIndicator>",
@@ -71,7 +66,6 @@ public class AccountServiceImplemetation implements AccountService {
 					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", coreSuccessIndicator);
 					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", coreTransactionId);
 
-					// 5-GET Account Number from RESPONSE and update records in your DB
 					accountRequest.setCustomerAccount(coreSuccessIndicator);
 
 					// 6-RESPOND BACK

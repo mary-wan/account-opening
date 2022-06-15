@@ -10,7 +10,7 @@
          <OfsFunction>
          </OfsFunction>
          <CUSTOMERKCBCHANNELSType id="">
-              <cus:Mnemonic>ID336112T</cus:Mnemonic>
+              <cus:Mnemonic>${customerIdNumber}</cus:Mnemonic>
             <cus:gSHORTNAME g="1">
                <cus:ShortName>${firstName}</cus:ShortName>
             </cus:gSHORTNAME>
