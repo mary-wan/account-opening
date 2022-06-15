@@ -39,36 +39,34 @@ public class CustomerServiceImplemetation implements CustomerService {
 			customerRepository.save(customer);
 
 			// 2-TRANSFORM JSON TO XML for T24
-			HashMap<String, String> xmlRequest = new HashMap<String, String>();
+			HashMap<String, String> t24XmlRequest = new HashMap<String, String>();
 
-			xmlRequest = createCustomerFormatter.formatCustomerCreateRequest(customer);
+			t24XmlRequest = createCustomerFormatter.formatCustomerCreateRequest(customer);
 
-			if (xmlRequest.get("RESPONSE_CODE").equals("000")) {
+			if (t24XmlRequest.get("RESPONSE_CODE").equals("000")) {
 
 				// 3-INVOKE T24 SOAP ENDPOINT for CUSTOMER CREATION
 
-				HashMap<String, String> T24 = new HashMap<String, String>();
+				HashMap<String, String> T24Response = new HashMap<String, String>();
 				
-				T24 = httpClient.INVOKE_T24(xmlRequest.get("RESPONSE_BODY"));
+				T24Response = httpClient.INVOKE_T24(t24XmlRequest.get("RESPONSE_BODY"));
 
-				if (T24.get("RESPONSE_CODE").equals("000")) {
+				if (T24Response.get("RESPONSE_CODE").equals("000")) {
 
-					String responseBody = T24.get("RESPONSE_BODY");
+					String responseBody = T24Response.get("RESPONSE_BODY");
 
 					// 4-GET RESPONSE - TRANSFORM XML to JSON
-					String coreTransactionId = StringUtils.substringBetween(responseBody, "<transactionId>",
+					String transactionId = StringUtils.substringBetween(responseBody, "<transactionId>",
 							"</transactionId>");
-					String coreSuccessIndicator = StringUtils.substringBetween(responseBody, "<successIndicator>",
+					String successIndicator = StringUtils.substringBetween(responseBody, "<successIndicator>",
 							"</successIndicator>");
 
-					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", coreSuccessIndicator);
-					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", coreTransactionId);
+					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", successIndicator);
+					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", transactionId);
 
 					// 5-GET CUSTOMER NUMBER(CIF) from RESPONSE and update records in your DB
-					customer.setCustomerNumber(coreTransactionId);
+					customer.setCustomerNumber(transactionId);
 
-					// 6-RESPOND BACK
-					//return customerRepository.save(customer);
 
 				} else {
 

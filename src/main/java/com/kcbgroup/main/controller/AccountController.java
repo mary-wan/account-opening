@@ -47,10 +47,7 @@ public class AccountController {
 
 	@GetMapping("/customer/accounts/{customerId}")
 	public ResponseEntity<List<Account>> getAllCustomers(@PathVariable("customerId") Long customerIdNumber) {
-		
-		if (customerService.getCustomerById(customerIdNumber) == null) {
-			throw new ResourceNotFoundException("Customer with id " + customerIdNumber + " not found.");
-		}		
+			
 		return new ResponseEntity<>(accountService.getCustomerAccounts(customerIdNumber), HttpStatus.OK);
 
 	}

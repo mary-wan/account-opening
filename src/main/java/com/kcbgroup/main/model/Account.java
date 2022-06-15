@@ -44,25 +44,11 @@ public class Account {
 	
 	@Column(name = "customer_account")
 	private String customerAccount;
-//	
-//	@Column(name = "nationality")
-//	private String nationality;
-//	
-//	@Column(name = "industry")
-//	private String industry;
-	
-//
-//	public Customer getCustomer() {
-//		return customer;
-//	}
-//
-//	public void setCustomer(Customer customer) {
-//		this.customer = customer;
-//	}
+
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.ALL})
-//	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "customer_id_number", nullable = false, referencedColumnName = "customer_id_number")
 
 	private Customer customer;
