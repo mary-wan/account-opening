@@ -19,11 +19,11 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class RestTemplateConfig {
 	
-	private int CONNECTION_REQUEST_TIMEOUT=60000;
+	private int CONNECTION_REQUEST_TIMEOUT=10000;
 	
-	private int CONNECTION_TIMEOUT=60000;
+	private int CONNECTION_TIMEOUT=10000;
 	
-	private int CONNECTION_READ_TIMEOUT=60000;
+	private int CONNECTION_READ_TIMEOUT=10000;
 	
 	
 	@Bean(name = "RestTemplateByPassSSL")

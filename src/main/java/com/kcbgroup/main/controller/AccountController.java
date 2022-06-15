@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
-@Slf4j
 public class AccountController {
 
 	@Autowired
@@ -35,14 +34,8 @@ public class AccountController {
 
 	@PostMapping("/account/{customerId}")
 	public ResponseEntity<?> createAccount(@RequestBody Account account, @PathVariable Long customerId) {
-		try {
-
-			return new ResponseEntity<>(accountService.createAccount(customerId, account), HttpStatus.CREATED);
-
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-		}
+		return accountService.createAccount(customerId, account);
+		
 	}
 
 	@GetMapping("/customer/accounts/{customerId}")

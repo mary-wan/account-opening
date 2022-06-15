@@ -10,11 +10,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import com.kcbgroup.main.model.Account;
 import com.kcbgroup.main.model.Customer;
 import com.kcbgroup.main.repository.CustomerRepository;
 import com.kcbgroup.main.service.CustomerService;
 import com.kcbgroup.main.utils.CreateCustomerFormatter;
 import com.kcbgroup.main.utils.HttpClient;
+import com.kcbgroup.main.utils.Utils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,11 +34,10 @@ public class CustomerServiceImplemetation implements CustomerService {
 	private HttpClient httpClient;
 
 	@Override
-	public Customer createCustomer(Customer customer) {
+	public ResponseEntity<Customer> createCustomer(Customer customer) {
 		try {
 
 			// 1-SAVE REQUEST TO DATABASE
-			customerRepository.save(customer);
 
 			// 2-TRANSFORM JSON TO XML for T24
 			HashMap<String, String> t24XmlRequest = new HashMap<String, String>();
@@ -63,16 +64,30 @@ public class CustomerServiceImplemetation implements CustomerService {
 
 					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", successIndicator);
 					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", transactionId);
+					
+					Utils utils = new Utils();
+					String customerNumber = String.valueOf(utils.generate()); 
 
 					// 5-GET CUSTOMER NUMBER(CIF) from RESPONSE and update records in your DB
-					customer.setCustomerNumber(transactionId);
-
+					customer.setCustomerNumber(customerNumber);
+					customerRepository.save(customer);
+					
+					return new ResponseEntity<>(HttpStatus.CREATED);
 
 				} else {
+					Utils utils = new Utils();
+					String mockedResponse = utils.mockCreateCustomerResponse();
+					
+					String coreTransactionId = StringUtils.substringBetween(mockedResponse, "<transactionId>","</transactionId>");
+					String coreSuccessIndicator = StringUtils.substringBetween(mockedResponse, "<successIndicator>","</successIndicator>");
+					String customerNumber = String.valueOf(utils.generate()); 
+		
+					customer.setCustomerNumber(customerNumber);
+					customerRepository.save(customer);
+					return new ResponseEntity<>(HttpStatus.CREATED);//201
 
 					// failure-Handshake
 				}
-
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());

@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,14 +28,20 @@ import lombok.NoArgsConstructor;
 @Table(name = "ken20956_Account")
 public class Account {
 
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
+	@Column(unique = true, nullable = true)
+	private String accountNumber;
 
+	/*
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(unique = true, nullable = false)
 	private String accountNumber;
+	*/
 
 	@Column(name = "account_type")
 	private String accountType;
@@ -45,12 +52,15 @@ public class Account {
 	@Column(name = "customer_account")
 	private String customerAccount;
 
+	@Column(name = "customer_number")
+	private String customerNumber;
 
+	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = {CascadeType.ALL})
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "customer_id_number", nullable = false, referencedColumnName = "customer_id_number")
-
+	
 	private Customer customer;
 
 }

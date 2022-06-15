@@ -12,7 +12,7 @@ import com.kcbgroup.main.model.Customer;
 @Service
 public interface CustomerService {
 	
-	Customer createCustomer(Customer customer);
+	ResponseEntity<Customer> createCustomer(Customer customer);
 	
 	List<Customer> getCustomers();
 

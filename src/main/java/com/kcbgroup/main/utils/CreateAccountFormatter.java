@@ -35,7 +35,7 @@ public class CreateAccountFormatter {
 			templateData.put("clientUsername", customProperties.getClientUsername());
 			templateData.put("clientPassword", customProperties.getClientPassword());
 
-			templateData.put("customerNumber", requestWrapper.getAccountNumber());
+			templateData.put("customerNumber", requestWrapper.getCustomer().getCustomerIdNumber());
 			templateData.put("kraPin", requestWrapper.getKraPin());
 			
 			String requestXml = FreeMarkerTemplateUtils.processTemplateIntoString(templates, templateData);
