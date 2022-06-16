@@ -31,4 +31,11 @@ t24:
   service-name: T24WebServicesImplService
   base-url: https://10.216.1.46:8443/
   base-resource: /T24KCBChannelService/services
+  
+  
+twilio:
+ account_sid: AC84b28cecd56650e3fe21e47e5e7ccc11
+ auth_token: 34dea33ae41a927a6eed7f660684686d
+ trial_number: +19123723756
+
 

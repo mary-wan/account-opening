@@ -35,13 +35,6 @@ public class Account {
 	@Column(unique = true, nullable = true)
 	private String accountNumber;
 
-	/*
-	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@Column(unique = true, nullable = false)
-	private String accountNumber;
-	*/
 
 	@Column(name = "account_type")
 	private String accountType;
@@ -49,8 +42,7 @@ public class Account {
 	@Column(name = "kra_pin")
 	private String kraPin;
 	
-	@Column(name = "customer_account")
-	private String customerAccount;
+
 
 	@Column(name = "customer_number")
 	private String customerNumber;
