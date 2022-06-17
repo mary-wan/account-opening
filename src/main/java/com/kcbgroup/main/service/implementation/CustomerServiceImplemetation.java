@@ -65,11 +65,9 @@ public class CustomerServiceImplemetation implements CustomerService {
 					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", successIndicator);
 					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", transactionId);
 					
-					Utils utils = new Utils();
-					String customerNumber = String.valueOf(utils.generate()); 
 
 					// 5-GET CUSTOMER NUMBER(CIF) from RESPONSE and update records in your DB
-					customer.setCustomerNumber(customerNumber);
+					customer.setCustomerNumber(transactionId);
 					customerRepository.save(customer);
 					
 					return new ResponseEntity<>(HttpStatus.CREATED);

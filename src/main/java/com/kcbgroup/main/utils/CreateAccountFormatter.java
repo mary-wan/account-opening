@@ -27,18 +27,22 @@ public class CreateAccountFormatter {
 
 		HashMap<String, String> response = new HashMap<String, String>();
 		Map<String, Object> templateData = new HashMap<String, Object>();
+		
+		Utils utils = new Utils();
+		
+		String uniqueKey = String.valueOf(utils.generate());
 
 		try {
 			freemarker.setClassForTemplateLoading(this.getClass(), "/templates");
 			Template templates = freemarker.getTemplate("account-create.ftl");
 
-			templateData.put("clientUsername", customProperties.getClientUsername());
-			templateData.put("clientPassword", customProperties.getClientPassword());
-
-			templateData.put("customerNumber", requestWrapper.getCustomer().getCustomerIdNumber());
+			templateData.put("customerNumber", requestWrapper.getCustomer().getCustomerNumber());
 			templateData.put("kraPin", requestWrapper.getKraPin());
+			templateData.put("uniqueKey", uniqueKey);
 			
 			String requestXml = FreeMarkerTemplateUtils.processTemplateIntoString(templates, templateData);
+			
+			log.info(requestXml);
 
 			response.put("RESPONSE_CODE", "000");
 			response.put("RESPONSE_BODY", requestXml);

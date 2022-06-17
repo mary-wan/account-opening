@@ -29,8 +29,9 @@ t24:
   client-username: KE0010001
   client-password: QWERTYui123*
   service-name: T24WebServicesImplService
-  base-url: https://10.216.1.46:8443/
-  base-resource: /T24KCBChannelService/services
+  base-url: https://10.216.1.46:8443
+  base-resource: /T24KCBAccountOpening/services
+ 
   
   
 twilio:

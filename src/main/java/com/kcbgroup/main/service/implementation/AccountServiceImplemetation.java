@@ -60,6 +60,7 @@ public class AccountServiceImplemetation implements AccountService {
 			customerRepository.findCustomerBycustomerIdNumber(customerIdNumber);
 
 			accountRequest.setCustomer(customer);
+			accountRequest.setCustomerNumber(accountRequest.getCustomer().getCustomerNumber());
 
 			SmsRequest smsRequest = new SmsRequest();
 
@@ -83,16 +84,13 @@ public class AccountServiceImplemetation implements AccountService {
 							"</successIndicator>");
 					log.info("coreSuccessIndicator ^^^^^^^^^^^^^^^^ {}", coreSuccessIndicator);
 					log.info("coreTransactionId ^^^^^^^^^^^^^^^^ {}", coreTransactionId);
-					accountRequest.setCustomerNumber(coreSuccessIndicator);
+					
+				
 
-					Utils utils = new Utils();
-					String accountNumber = String.valueOf(utils.generate()); // MOCK RANDOM A/C GENERATION
-
-					accountRequest.setAccountNumber(accountNumber);
+					accountRequest.setAccountNumber(coreTransactionId);
 					accountRepository.save(accountRequest);
 
 					// SEND SMS
-
 					String message = "Dear " + customer.getFirstName() + " " + customer.getLastName()
 							+ ", Your account has been successfully created. Your account number is "
 							+ accountRequest.getAccountNumber();
@@ -116,6 +114,7 @@ public class AccountServiceImplemetation implements AccountService {
 							"</transactionId>");
 					String coreSuccessIndicator = StringUtils.substringBetween(mockedResponse, "<successIndicator>",
 							"</successIndicator>");
+					
 					String accountNumber = String.valueOf(utils.generate()); // MOCK RANDOM A/C GENERATION
 
 					accountRequest.setAccountNumber(accountNumber);
@@ -132,8 +131,6 @@ public class AccountServiceImplemetation implements AccountService {
 
 					smsRequest.setPhoneNumber(customer.getPhoneNumber());
 					smsRequest.setMessage(message);
-					
-					log.info("----------------------> {}",smsRequest);
 
 					twilioSendSmsService.sendSms(smsRequest);
 

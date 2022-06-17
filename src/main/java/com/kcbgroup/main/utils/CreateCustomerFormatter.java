@@ -14,6 +14,7 @@ import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class CreateCustomerFormatter {
 
 	@Autowired
@@ -30,11 +31,8 @@ public class CreateCustomerFormatter {
 			freemarker.setClassForTemplateLoading(this.getClass(), "/templates");
 			Template templates = freemarker.getTemplate("customer-create.ftl");
 
-			templateData.put("clientUsername", customProperties.getClientUsername());
-			templateData.put("clientPassword", customProperties.getClientPassword());
-
 			templateData.put("firstName", requestWrapper.getFirstName());
-			templateData.put("customerIdNumber", requestWrapper.getCustomerIdNumber());
+			templateData.put("customerIdNumber","ID"+ String.valueOf(requestWrapper.getCustomerIdNumber()) +"T");
 			templateData.put("lastName", requestWrapper.getLastName());
 			templateData.put("fullName", requestWrapper.getFirstName() + " " + requestWrapper.getLastName());
 			templateData.put("street", requestWrapper.getStreet());
@@ -44,6 +42,8 @@ public class CreateCustomerFormatter {
 			templateData.put("email", requestWrapper.getEmail());
 
 			String requestXml = FreeMarkerTemplateUtils.processTemplateIntoString(templates, templateData);
+			
+			log.info(requestXml);
 
 			response.put("RESPONSE_CODE", "000");
 			response.put("RESPONSE_BODY", requestXml);

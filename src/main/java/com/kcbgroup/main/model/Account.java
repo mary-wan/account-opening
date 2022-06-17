@@ -41,8 +41,6 @@ public class Account {
 	
 	@Column(name = "kra_pin")
 	private String kraPin;
-	
-
 
 	@Column(name = "customer_number")
 	private String customerNumber;

@@ -27,8 +27,6 @@ public class SendSmsServiceImplementation implements SendSmsService{
 			String message = smsRequest.getMessage();	
 			MessageCreator creator =Message.creator(to, from, message);
 			
-			log.info("----------> send sms {}",smsRequest);
-			
 			creator.create();		
 	}
 

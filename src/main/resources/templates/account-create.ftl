@@ -1,7 +1,7 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:t24="http://temenos.com/T24KCBAccountOpening" xmlns:acc="http://temenos.com/ACCOUNTKCBCHANNELS">
    <soapenv:Header/>
    <soapenv:Body>
-      <t24:T24WebServicesImplService>
+      <t24:KCBAccountCreation>
          <WebRequestCommon>
             <company>KE0010001</company>
             <password>QWERTYui123*</password>
@@ -33,7 +33,7 @@
             </acc:gDSA.SUP>
              <acc:GoalName></acc:GoalName>
              <acc:UniqueID></acc:UniqueID>
-             <acc:ChannelsUniqueRef>OFF1234EEE30</acc:ChannelsUniqueRef>
+             <acc:ChannelsUniqueRef>${uniqueKey}</acc:ChannelsUniqueRef>
              <acc:AutoRenewalOptions></acc:AutoRenewalOptions>
              <acc:gBRANCH.INPUTTER g="1">
                 <acc:BranchInputter></acc:BranchInputter>
